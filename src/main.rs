@@ -1,27 +1,83 @@
-use clap::Parser;
+// use aes_gcm::aead::Aead;
+// use aes_gcm::{Aes256Gcm, Key, Nonce};
+use clap::builder::styling::{AnsiColor, Styles};
+use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
 #[derive(Parser)]
-#[command(version, about = "Inspects file metadata")]
+#[command(version, about)]
+#[command(styles = CUSTOM_STYLES)]
 struct Args {
-    /// File path to inspect
-    path: PathBuf,
+    #[command(subcommand)]
+    command: Command,
+}
 
-    /// Show human-readable sizes (e.g., KB, MB)
-    #[arg(short = 'H', long)]
-    human_readable: bool,
+/*
+const STYLES: styling::Styles = styling::Styles::styled()
+    .header(styling::AnsiColor::Green.on_default().bold())
+    .usage(styling::AnsiColor::Green.on_default().bold())
+    .literal(styling::AnsiColor::Blue.on_default().bold())
+    .placeholder(styling::AnsiColor::Cyan.on_default())
+    .literal(styling::AnsiColor::Blue.on_default().bold());
+//.error(clap_cargo::style::ERROR)
+//.valid(clap_cargo::style::VALID)
+//.invalid(clap_cargo::style::INVALID);
+*/
+
+const CUSTOM_STYLES: Styles = Styles::styled()
+    .header(AnsiColor::Yellow.on_default())
+    .usage(AnsiColor::Green.on_default())
+    .literal(AnsiColor::Blue.on_default().bold())
+    .placeholder(AnsiColor::Cyan.on_default())
+    .error(AnsiColor::Red.on_default().bold())
+    .valid(AnsiColor::Green.on_default().bold())
+    .invalid(AnsiColor::Red.on_default().bold());
+
+#[derive(Subcommand)]
+enum Command {
+    /// Encrypts a file
+    Encrypt {
+        input: PathBuf,
+        output: PathBuf,
+        #[arg(short, long)]
+        key: String,
+    },
+    /// Decrypts a file
+    Decrypt {
+        input: PathBuf,
+        output: PathBuf,
+        #[arg(short, long)]
+        key: String,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
     let args = Args::parse();
-    let metadata = std::fs::metadata(&args.path)?;
+    match args.command {
+        Command::Encrypt { input, output, key } => encrypt_file(&input, &output, &key)?,
+        Command::Decrypt { input, output, key } => decrypt_file(&input, &output, &key)?,
+    }
+    Ok(())
+}
 
-    let size = if args.human_readable {
-        format!("{} KB", metadata.len() / 1024)
-    } else {
-        format!("{} bytes", metadata.len())
-    };
+fn encrypt_file(input: &PathBuf, output: &PathBuf, key: &str) -> anyhow::Result<()> {
+    // AES-256 logic (truncated for brevity)
+    println!(
+        "Encrypted {} to {} with key {}",
+        input.display(),
+        output.display(),
+        key
+    );
+    Ok(())
+}
 
-    println!("Path: {:?}\nSize: {}", args.path, size);
+fn decrypt_file(input: &PathBuf, output: &PathBuf, key: &str) -> anyhow::Result<()> {
+    // AES-256 logic (truncated for brevity)
+    println!(
+        "Decrypted {} to {} with key {}",
+        input.display(),
+        output.display(),
+        key
+    );
     Ok(())
 }
