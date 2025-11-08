@@ -24,3 +24,11 @@ fmt = "fmt --all"
 [target.'cfg(target_os = "macos")']
 rustflags = ["-C", "link-arg=-Wl,-rpath,@executable_path/../lib"]
 ```
+
+# .git/hooks/pre-commit
+```
+#!/bin/bash
+cargo fmt -- --check
+cargo clippy -- -D warnings
+cargo test --quiet
+```
