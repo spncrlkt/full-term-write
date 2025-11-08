@@ -1,5 +1,5 @@
-https://rust-lang-nursery.github.io/rust-cookbook/cli.html
-https://rust-cli.github.io/book/in-depth/docs.html
-https://codezup.com/rust-clap-cli-tutorial/
-https://github.com/rust-lang/rust.vim
-
+- https://rust-lang-nursery.github.io/rust-cookbook/cli.html
+- https://rust-cli.github.io/book/in-depth/docs.html
+- https://codezup.com/rust-clap-cli-tutorial/
+- https://github.com/rust-lang/rust.vim
+- 

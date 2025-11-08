@@ -12,18 +12,6 @@ struct Args {
     command: Command,
 }
 
-/*
-const STYLES: styling::Styles = styling::Styles::styled()
-    .header(styling::AnsiColor::Green.on_default().bold())
-    .usage(styling::AnsiColor::Green.on_default().bold())
-    .literal(styling::AnsiColor::Blue.on_default().bold())
-    .placeholder(styling::AnsiColor::Cyan.on_default())
-    .literal(styling::AnsiColor::Blue.on_default().bold());
-//.error(clap_cargo::style::ERROR)
-//.valid(clap_cargo::style::VALID)
-//.invalid(clap_cargo::style::INVALID);
-*/
-
 const CUSTOM_STYLES: Styles = Styles::styled()
     .header(AnsiColor::Yellow.on_default())
     .usage(AnsiColor::Green.on_default())
