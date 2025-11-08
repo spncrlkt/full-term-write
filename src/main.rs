@@ -1,5 +1,3 @@
-// use aes_gcm::aead::Aead;
-// use aes_gcm::{Aes256Gcm, Key, Nonce};
 use clap::builder::styling::{AnsiColor, Styles};
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
